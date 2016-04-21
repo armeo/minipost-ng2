@@ -1,11 +1,12 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
-import {NavbarComponent} from './navbar.component';
 import {HomeComponent} from './home.component';
+import {NavbarComponent} from './navbar.component';
+import {NotFoundComponent} from './not-found.component';
+import {PostsComponent} from './posts.component';
 import {UsersComponent} from './users.component';
 import {UserFormComponent} from './user-form.component';
-import {PostsComponent} from './posts.component';
 
 @RouteConfig([
     { path: '/', name: 'Home', component: HomeComponent },
@@ -13,6 +14,7 @@ import {PostsComponent} from './posts.component';
     { path: '/users/new', name: 'NewUser', component: UserFormComponent },
     { path: '/users/:id', name: 'EditUser', component: UserFormComponent },
  	{ path: '/posts', name: 'Posts', component: PostsComponent },
+    { path: '/not-found', name: 'NotFound', component: NotFoundComponent },
  	{ path: '/*other', name: 'Other', redirectTo: ['Home'] }
  ])
 @Component({
