@@ -21,8 +21,8 @@ import {SpinnerComponent} from './spinner.component';
 })
 export class PostsComponent implements OnInit {
     posts: any[];
-    isLoading = true;
-    commentsLoading;
+    postsLoading = true;
+    commentsLoading = false;
     currentPost;
     
     constructor(private _service: PostService){
@@ -32,7 +32,7 @@ export class PostsComponent implements OnInit {
         this._service.getPosts().subscribe(
             posts => this.posts = posts,
             null,
-            () => this.isLoading = false
+            () => this.postsLoading = false
         );
     }
     
