@@ -22,6 +22,7 @@ import {SpinnerComponent} from './spinner.component';
 export class PostsComponent implements OnInit {
     posts: any[];
     isLoading = true;
+    commentsLoading;
     currentPost;
     
     constructor(private _service: PostService){
@@ -31,13 +32,18 @@ export class PostsComponent implements OnInit {
         this._service.getPosts().subscribe(
             posts => this.posts = posts,
             null,
-            () => { this.isLoading = false; }
+            () => this.isLoading = false
         );
     }
     
     select(post){
         this.currentPost = post;
+        this.commentsLoading = true;
         this._service.getPostComment(post.id)
-            .subscribe(comments => this.currentPost.comments = comments);
+            .subscribe(
+                comments => this.currentPost.comments = comments,
+                null,
+                () => this.commentsLoading = false
+            );
     }
 }
