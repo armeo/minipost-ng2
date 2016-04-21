@@ -33,18 +33,6 @@ export class UserFormComponent implements OnInit, CanDeactivate {
  			})
  		});
  	}
-	
-	save(){
-		var result;
-		if (this.user.id) 
-			result = this._userService.updateUser(this.user);
-		else
-			result = this._userService.addUser(this.user)
-
-		result.subscribe(x => {
-			this._router.navigate(['Users']);
-		});
- 	}
 	 
 	ngOnInit(){
 		var id = this._routeParams.get("id");
@@ -69,4 +57,16 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 			return confirm('You have unsaved changes. Are you sure you want to navigate away?');
 		return true; 
 	} 
+	
+	save(){
+		var result;
+		if (this.user.id) 
+			result = this._userService.updateUser(this.user);
+		else
+			result = this._userService.addUser(this.user)
+
+		result.subscribe(x => {
+			this._router.navigate(['Users']);
+		});
+ 	}
 }
