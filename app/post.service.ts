@@ -7,11 +7,15 @@ export class PostService {
     private _url = "http://jsonplaceholder.typicode.com/posts";
     
     constructor(private _http: Http){
-        
     }
     
-    getPosts(){
-        return this._http.get(this._url).map(res => res.json());
+    getPosts(filter?){
+        var url = this._url;
+        if(filter && filter.userId)
+            url += "?userId=" + filter.userId;
+        
+        console.log(url);
+        return this._http.get(url).map(res => res.json());
     }
     
     getPostComment(postId){
