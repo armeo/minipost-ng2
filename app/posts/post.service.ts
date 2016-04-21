@@ -14,7 +14,6 @@ export class PostService {
         if(filter && filter.userId)
             url += "?userId=" + filter.userId;
         
-        console.log(url);
         return this._http.get(url).map(res => res.json());
     }
     
