@@ -6,7 +6,7 @@ import {BasicValidators} from './basicValidators';
 @Component({
     templateUrl: 'app/user-form.component.html'
 })
-export class UserFormComponent {
+export class UserFormComponent implements CanDeactivate {
     form: ControlGroup;
  
  	constructor(fb: FormBuilder) {
@@ -21,5 +21,11 @@ export class UserFormComponent {
  				zipcode: []
  			})
  		});
- 	}   
+ 	}
+	 
+	routerCanDeactivate(){
+ 		if (this.form.dirty)
+			return confirm('You have unsaved changes. Are you sure you want to navigate away?');
+		return true; 
+	} 
 }
