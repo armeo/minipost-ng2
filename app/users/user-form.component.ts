@@ -8,65 +8,65 @@ import {UserService} from './user.service';
 
 @Component({
     templateUrl: 'app/users/user-form.component.html',
-	providers: [UserService]
+    providers: [UserService]
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
     form: ControlGroup;
-	title: string;
+    title: string;
     user = new User();
- 
- 	constructor(
-		 fb: FormBuilder, 
-		 private _userService: UserService,
-		 private _router: Router,
-		 private _routeParams: RouteParams
-	) {
- 		this.form = fb.group({
- 			name: ['', Validators.required],
- 			email: ['', BasicValidators.email],
- 			phone: [],
- 			address: fb.group({
- 				street: [],
- 				suite: [],
- 				city: [],
- 				zipcode: []
- 			})
- 		});
- 	}
-	 
-	ngOnInit(){
-		var id = this._routeParams.get("id");
- 
-         this.title = id ? "Edit User" : "New User";
-         
-         if (!id)
- 			return;
-             
-         this._userService.getUser(id)
- 			.subscribe(
-                 user => this.user = user,
-                 response => {
-                     if (response.status == 404) {
-                         this._router.navigate(['NotFound']);
-                     }
-                 });
-	}
-	 
-	routerCanDeactivate(){
- 		if (this.form.dirty)
-			return confirm('You have unsaved changes. Are you sure you want to navigate away?');
-		return true; 
-	} 
-	
-	save(){
-		var result;
-		if (this.user.id) 
-			result = this._userService.updateUser(this.user);
-		else
-			result = this._userService.addUser(this.user)
 
-		result.subscribe(x => {
-			this._router.navigate(['Users']);
-		});
- 	}
+    constructor(
+        fb: FormBuilder,
+        private _userService: UserService,
+        private _router: Router,
+        private _routeParams: RouteParams
+    ) {
+        this.form = fb.group({
+            name: ['', Validators.required],
+            email: ['', BasicValidators.email],
+            phone: [],
+            address: fb.group({
+                street: [],
+                suite: [],
+                city: [],
+                zipcode: []
+            })
+        });
+    }
+
+    ngOnInit() {
+        var id = this._routeParams.get("id");
+
+        this.title = id ? "Edit User" : "New User";
+
+        if (!id)
+            return;
+
+        this._userService.getUser(id)
+            .subscribe(
+            user => this.user = user,
+            response => {
+                if (response.status == 404) {
+                    this._router.navigate(['NotFound']);
+                }
+            });
+    }
+
+    routerCanDeactivate() {
+        if (this.form.dirty)
+            return confirm('You have unsaved changes. Are you sure you want to navigate away?');
+        return true;
+    }
+
+    save() {
+        var result;
+        if (this.user.id)
+            result = this._userService.updateUser(this.user);
+        else
+            result = this._userService.addUser(this.user)
+
+        result.subscribe(x => {
+            this._router.navigate(['Users']);
+        });
+    }
 }
